@@ -4,6 +4,7 @@ import (
 	"kaijuVpn/pkg/telegram/handlers"
 	"log"
 	"net/http"
+	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -17,7 +18,7 @@ func NewBot(bot *tgbotapi.BotAPI) *Bot {
 }
 
 func (b *Bot) Run() error {
-	err := b.createWebHook("https://77e9-207-154-198-134.ngrok.io/", b.bot.Token)
+	err := b.createWebHook(os.Getenv("WEBHOOK_URL")+"/", b.bot.Token)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,8 +59,7 @@ func (b *Bot) handleUpdates(updates tgbotapi.UpdatesChannel) {
 			if err == nil {
 				go handler(b.bot, update)
 			}
-		}
-		if update.Message != nil {
+		} else if update.Message != nil {
 			command := update.Message.Command()
 			handler, err := handlers.HandleCommand(command)
 			if err == nil {

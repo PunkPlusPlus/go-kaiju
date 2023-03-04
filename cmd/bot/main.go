@@ -15,7 +15,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	//qiwi.CreateBill()
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("BOT_TOKEN"))
 	if err != nil {
 		log.Panic(err)

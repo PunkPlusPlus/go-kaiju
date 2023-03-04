@@ -42,11 +42,11 @@ func defaultHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 func startHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	var numericKeyboard = tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("Yes", "agree_purscase"),
-			tgbotapi.NewInlineKeyboardButtonData("No", "noCallback"),
+			tgbotapi.NewInlineKeyboardButtonData("Оплатить💰", "agree_purscase"),
+			tgbotapi.NewInlineKeyboardButtonData("Как установить vpn💡", "noCallback"),
 		),
 	)
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Привет! Я - бот для продажи доступа к Kaiju VPN. Для оплаты нажми кнопку \"Оплатить\" и следуй инструкциям.")
 	msg.ReplyMarkup = numericKeyboard
 	bot.Send(msg)
 }
