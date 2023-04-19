@@ -5,6 +5,7 @@ go 1.19
 require github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 
 require (
+	github.com/go-sql-driver/mysql v1.7.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/uuid v1.3.0 // indirect

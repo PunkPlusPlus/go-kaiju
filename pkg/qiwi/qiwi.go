@@ -70,4 +70,3 @@ func getData() models.CreateBillRequest {
 	main.ExpirationDateTime = time.Now().Add(10*time.Minute).Format("2006-01-02T15:04:05") + "+00:00"
 	return main
 }
-// YYYY-MM-DD hh:mm::ss

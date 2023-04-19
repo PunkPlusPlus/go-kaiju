@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"errors"
+	"kaijuVpn/pkg/database/users"
+	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -40,6 +42,12 @@ func defaultHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func startHandler(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	var telegram_user = update.Message.From
+	var user = users.User{
+		Telegram_id: strconv.FormatInt(telegram_user.ID, 10),
+	}
+	users.CreateIfNotExist(user)
+
 	var numericKeyboard = tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("Оплатить💰", "agree_purscase"),

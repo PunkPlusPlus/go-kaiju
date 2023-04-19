@@ -20,7 +20,7 @@ func HandleCallback(callback string) (func(*tgbotapi.BotAPI, tgbotapi.Update), e
 	case "back":
 		return back, nil
 	default:
-		return defaultHandler, nil
+		return nil, nil
 	}
 }
 
