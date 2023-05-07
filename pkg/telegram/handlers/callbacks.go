@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"errors"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"kaijuVpn/pkg/qiwi"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 var oldMarkup tgbotapi.InlineKeyboardMarkup
