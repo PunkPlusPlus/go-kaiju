@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"kaijuVpn/pkg/qiwi"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -10,19 +9,15 @@ import (
 var oldMarkup tgbotapi.InlineKeyboardMarkup
 
 func HandleCallback(callback string) (func(*tgbotapi.BotAPI, tgbotapi.Update), error) {
-
-	if callback == "" {
-		return nil, errors.New("Empty command")
+	callbacks := map[string]func(*tgbotapi.BotAPI, tgbotapi.Update){
+		"agree_purscase": handlePurscase,
+		"back":           back,
+	}
+	if checker, ok := callbacks[callback]; ok {
+		return checker, nil
 	}
 
-	switch callback {
-	case "agree_purscase":
-		return handlePurscase, nil
-	case "back":
-		return back, nil
-	default:
-		return nil, nil
-	}
+	return nil, nil
 }
 
 func handlePurscase(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
