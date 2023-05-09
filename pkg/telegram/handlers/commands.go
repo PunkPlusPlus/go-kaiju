@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"kaijuVpn/pkg/database/users"
 	"strconv"
 
@@ -9,21 +8,16 @@ import (
 )
 
 func HandleCommand(command string) (func(*tgbotapi.BotAPI, tgbotapi.Update), error) {
-
-	if command == "" {
-		return nil, errors.New("Empty command")
+	commands := map[string]func(*tgbotapi.BotAPI, tgbotapi.Update){
+		"hello":    handleHello,
+		"set_name": setName,
+		"start":    startHandler,
+	}
+	if checker, ok := commands[command]; ok {
+		return checker, nil
 	}
 
-	switch command {
-	case "hello":
-		return handleHello, nil
-	case "set_name":
-		return setName, nil
-	case "start":
-		return startHandler, nil
-	default:
-		return defaultHandler, nil
-	}
+	return defaultHandler, nil
 }
 
 func handleHello(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
