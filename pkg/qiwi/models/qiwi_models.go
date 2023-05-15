@@ -1,5 +1,12 @@
 package models
 
+const (
+	BILL_WAITING  = "WAITING"
+	BILL_PAID     = "PAID"
+	BILL_REJECTED = "REJECTED"
+	BILL_EXPIRED  = "EXPIRED"
+)
+
 type CreateBillResponse struct {
 	SiteId             string     `json:"siteId"`
 	BillId             string     `json:"billId"`
@@ -14,6 +21,9 @@ type CreateBillResponse struct {
 type BillStatus struct {
 	Value           string `json:"value"`
 	ChangedDateTime string `json:"changedDateTime"`
+}
+type BillStatusResponse struct {
+	Status BillStatus `json:"status"`
 }
 
 type Customer struct {
