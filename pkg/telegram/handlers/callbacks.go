@@ -21,11 +21,6 @@ func HandleCallback(callback string) (func(*tgbotapi.BotAPI, tgbotapi.Update), e
 }
 
 func handlePurscase(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	var prevMessage = tgbotapi.NewEditMessageText(
-		update.CallbackQuery.Message.Chat.ID,
-		update.CallbackQuery.Message.MessageID,
-		update.CallbackQuery.Message.Text,
-	)
 	var waitMessage = tgbotapi.NewEditMessageText(
 		update.CallbackQuery.Message.Chat.ID,
 		update.CallbackQuery.Message.MessageID,
@@ -33,7 +28,6 @@ func handlePurscase(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	)
 	bot.Send(waitMessage)
 	result := qiwi.CreateBill()
-	bot.Send(prevMessage)
 	var buttons = []tgbotapi.InlineKeyboardButton{
 		tgbotapi.NewInlineKeyboardButtonURL("Ссылка для оплаты💸", result.PayUrl),
 		tgbotapi.NewInlineKeyboardButtonData("Назад⮑", "back"),
@@ -46,6 +40,8 @@ func handlePurscase(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	)
 
 	bot.Send(keyboard)
+
+	go qiwi.Pulling(result.BillId, bot, update)
 }
 
 func back(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
